@@ -9,9 +9,9 @@ services:
         # variable ACRA_DOCKER_IMAGE_TAG or run by default with 'latest' images
         image: "cossacklabs/acra-keymaker:${ACRA_DOCKER_IMAGE_TAG:-latest}"
         environment:
-            # INSECURE!!! You MUST define your own ACRA_MASTER_KEY
+            # INSECURE!!! You MUST define your own ACRA_SERVER_MASTER_KEY and ACRA_CONNECTOR_MASTER_KEY
             # The default is only for testing purposes
-            ACRA_MASTER_KEY: ${ACRA_MASTER_KEY:-UHZ3VUNNeTJ0SEFhbWVjNkt4eDdVYkc2WnNpUTlYa0E=}
+            ACRA_MASTER_KEY: ${ACRA_SERVER_MASTER_KEY:-N0MyZEVCRGY1cHA4ODRSVHp3c3BNeGtDekxaV3BhTHI=}
         volumes:
             # Mount the whole ./.acrakeys directory to be able generate keys and
             # place them in services' subdirectories
@@ -29,7 +29,7 @@ services:
     acra-keymaker_connector:
         image: "cossacklabs/acra-keymaker:${ACRA_DOCKER_IMAGE_TAG:-latest}"
         environment:
-            ACRA_MASTER_KEY: ${ACRA_MASTER_KEY:-UHZ3VUNNeTJ0SEFhbWVjNkt4eDdVYkc2WnNpUTlYa0E=}
+            ACRA_MASTER_KEY: ${ACRA_CONNECTOR_MASTER_KEY:-MElBVnhEeTd3b29JMFVVcnhGMXJPT3BxZUVwWW5wS3E=}
         volumes:
             - ./.acrakeys:/keys
         command: >-
@@ -53,7 +53,7 @@ services:
             - acraconnector-acraserver
             - acraserver-db
         environment:
-            ACRA_MASTER_KEY: ${ACRA_MASTER_KEY:-UHZ3VUNNeTJ0SEFhbWVjNkt4eDdVYkc2WnNpUTlYa0E=}
+            ACRA_MASTER_KEY: ${ACRA_SERVER_MASTER_KEY:-N0MyZEVCRGY1cHA4ODRSVHp3c3BNeGtDekxaV3BhTHI=}
         volumes:
             # Mount the directory with only the keys for this service. Must be
             # rewriteable in case of using API, otherwise should be read-only.
@@ -86,7 +86,7 @@ services:
             - acraconnector-acraserver
             - mutillidae-acraconnector
         environment:
-            ACRA_MASTER_KEY: ${ACRA_MASTER_KEY:-UHZ3VUNNeTJ0SEFhbWVjNkt4eDdVYkc2WnNpUTlYa0E=}
+            ACRA_MASTER_KEY: ${ACRA_CONNECTOR_MASTER_KEY:-MElBVnhEeTd3b29JMFVVcnhGMXJPT3BxZUVwWW5wS3E=}
         volumes:
             # Mount the directory with only the keys for this service
             - ./.acrakeys/acra-connector:/keys:ro
