@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+mysql_install_db --user=mysql > /dev/null
+
 MYSQL_ROOT_PASSWORD='test'
 
 MYSQL_DB='mutillidae'
